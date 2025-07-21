@@ -9,7 +9,7 @@ grf {
     name: string(STR_GRF_NAME);
     desc: string(STR_DESC_4, string(STR_GRF_DESC), string(STR_GRF_DESC_README),string(STR_GRF_DESC_MTR));
     url: string(STR_GRF_URL);
-    version: 30;
+    version: 31;
     min_compatible_version: 20;
 
     param 0 {
@@ -967,7 +967,7 @@ item (FEAT_TRAINS, normal_emucoach) {
         default_cargo_type: PASS;
         ai_special_flag: AI_FLAG_PASSENGER;
         cargo_capacity: 218;
-        loading_speed: 8 << param_loading_speed;
+        loading_speed: 36 << param_loading_speed;
         cargo_age_period: 128 << param_cargo_decay;
 
 
@@ -1643,6 +1643,7 @@ item (FEAT_TRAINS, yellowhead_exurb) {
         weight: switch_yellowhead_weight;
         can_attach_wagon: mu_of_mtr;
         cargo_age_period: 160 << param_cargo_decay;
+        loading_speed: 18 << param_loading_speed;
         bitmask_vehicle_info: 0;
         articulated_part: switch_mtr_wagon_articulated_part;
         running_cost_factor: switch_yellowhead_running() * runningcostfactor() + accostfactor();
@@ -1656,6 +1657,7 @@ item (FEAT_TRAINS, yellowhead_exurb) {
         weight: switch_yellowhead_weight;
         can_attach_wagon: mu_of_mtr;
         cargo_age_period: 240 << param_cargo_decay;
+        loading_speed: 18 << param_loading_speed;
         bitmask_vehicle_info: 0;
         articulated_part: switch_mtr_wagon_articulated_part;
         running_cost_factor: switch_yellowhead_running() * runningcostfactor() + accostfactor();
@@ -1669,6 +1671,7 @@ item (FEAT_TRAINS, yellowhead_exurb) {
         weight: switch_yellowhead_weight;
         can_attach_wagon: mu_of_mtr;
         cargo_age_period: 240 << param_cargo_decay;
+        loading_speed: 18 << param_loading_speed;
         bitmask_vehicle_info: 0;
         articulated_part: switch_mtr_wagon_articulated_part;
         running_cost_factor: switch_yellowhead_running() * runningcostfactor() + accostfactor();
@@ -1777,6 +1780,7 @@ item (FEAT_TRAINS, yellowhead_suburb) {
         weight: switch_yellowhead_weight;
         can_attach_wagon: mu_of_mtr;
         cargo_age_period: 160 << param_cargo_decay;
+        loading_speed: 18 << param_loading_speed;
         bitmask_vehicle_info: 0;
         articulated_part: switch_mtr_wagon_articulated_part;
         running_cost_factor: switch_yellowhead_running() * runningcostfactor() + accostfactor();
@@ -2818,6 +2822,7 @@ item (FEAT_TRAINS, mtr380a) {
         can_attach_wagon: mu_of_mtr;
         cargo_age_period: (60 * 4) << param_cargo_decay;
         bitmask_vehicle_info: return 0;
+        loading_speed: 8 << param_loading_speed;
         articulated_part: switch_mtr_wagon_articulated_part;
         running_cost_factor: (switch_mtr380a_wagon_running() + crhspeedcost()) * runningcostfactor() * cafecostfactor() + accostfactor();
     }
@@ -3221,7 +3226,7 @@ item (FEAT_TRAINS, caf_train_airport_express) {
         default_cargo_type: PASS;
         ai_special_flag: AI_FLAG_PASSENGER;
         cargo_capacity: 1;
-        loading_speed: 36 << param_loading_speed;
+        loading_speed: 8 << param_loading_speed;
         cargo_age_period: 128 << param_cargo_decay;
 
 
