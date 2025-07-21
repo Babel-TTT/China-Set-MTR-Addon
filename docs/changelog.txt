@@ -1,3 +1,7 @@
+25/07/22 v0.3.1 by Babel
+---------
+Fix #4: Wagons of EMUs now have correct loading speed
+
 25/02/23 v0.3.0 by Babel
 ---------
 Change to use Makefile to building
