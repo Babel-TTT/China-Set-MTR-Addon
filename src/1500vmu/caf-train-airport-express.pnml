@@ -174,7 +174,7 @@ item (FEAT_TRAINS, caf_train_airport_express) {
         default_cargo_type:             PASS;
         ai_special_flag:                AI_FLAG_PASSENGER;
         cargo_capacity:                 1;
-        loading_speed:                  36 << param_loading_speed;
+        loading_speed:                  8 << param_loading_speed;
         cargo_age_period:               128 << param_cargo_decay;
 
         // Stats
