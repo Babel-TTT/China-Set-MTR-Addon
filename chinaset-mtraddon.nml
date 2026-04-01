@@ -373,6 +373,7 @@ item (FEAT_TRAINS, tml_ctrain, 1990) {}
 
 item (FEAT_TRAINS, caf_train_airport_express, 2240) {}
 item (FEAT_TRAINS, whitehead, 2241) {}
+item (FEAT_TRAINS, mtrain, 2242) {}
 
 
 item (FEAT_TRAINS, caf_train_tungchung, 2751) {}
@@ -2847,10 +2848,10 @@ item (FEAT_TRAINS, mtr380a) {
 
 # 1 "src/1500vmu/whitehead.pnml" 1
 
-
-
-
-
+switch (FEAT_TRAINS, SELF, switch_whitehead_name, getbits(extra_callback_info1, 0, 8) == 0x20? getbits(extra_callback_info1, 8, 8) : 0xFFFF) {
+    0: return string(STR_SERIES_WHITEHEAD);
+    return CB_RESULT_NO_TEXT;
+}
 
 
 spriteset (spriteset_whitehead_c, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
@@ -3032,6 +3033,7 @@ item (FEAT_TRAINS, whitehead) {
         purchase_running_cost_factor: 60;
         purchase_cargo_capacity: 125/3;
         bitmask_vehicle_info: bitmask(2);
+        name: switch_whitehead_name;
     }
 
 
@@ -3050,6 +3052,211 @@ item (FEAT_TRAINS, whitehead) {
     }
 }
 # 41 "chinaset-mtraddon.pnml" 2
+# 1 "src/1500vmu/mtrain.pnml" 1
+
+
+
+
+spriteset (spriteset_mtrain_c, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_standard ("1500vemu/mtrain", "m-train-mc")
+}
+spriteset (spriteset_mtrain_cr, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_reversed_10 ("1500vemu/mtrain", "m-train-mc")
+}
+spriteset (spriteset_mtrain_t, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_standard ("1500vemu/mtrain", "m-train-t")
+}
+spriteset (spriteset_mtrain_mp_1, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_reversed_10 ("1500vemu/mtrain", "m-train-mp-2")
+}
+spriteset (spriteset_mtrain_mp_2, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_standard ("1500vemu/mtrain", "m-train-mp-1")
+}
+
+
+
+spriteset (spriteset_mtrain_purchase_original, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
+    template_purchase ("1500vemu/mtrain", "m-train-mc")
+}
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_purchase_original, position_in_consist % 3) {
+    1: spriteset_mtrain_purchase_original;
+    empty_sprites;
+}
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_wagon_unit, (position_in_consist / 3) + 1) {
+    2: spriteset_mtrain_mp_1;
+    5: spriteset_mtrain_mp_1;
+    spriteset_mtrain_t;
+}
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_graphics_if_end, (position_in_consist_from_end / 3) + 1) {
+    1: spriteset_mtrain_cr;
+    2: spriteset_mtrain_mp_2;
+    switch_mtrain_wagon_unit;
+}
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_middle_wagon_graphics, position_in_consist % 3) {
+    1: switch_mtrain_graphics_if_end;
+    empty_sprites;
+}
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_graphics, position_in_consist % 3) {
+    1: spriteset_mtrain_c;
+    empty_sprites;
+}
+
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_weight_front, (position_in_consist / 3) + 1) {
+    2: return 41;
+    4..5: return 41;
+    return 28;
+}
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_weight, (position_in_consist_from_end / 3) + 1) {
+    1..2: return 41;
+    switch_mtrain_weight_front;
+}
+
+
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_capacity_1, param_cargo_capacity) {
+    4: return 375;
+    return (375) / 4 * param_cargo_capacity;
+}
+switch (FEAT_TRAINS, SELF, switch_mtrain_capacity, position_in_consist % 3) {
+    1: switch_mtrain_capacity_1;
+    return 0;
+}
+
+
+
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_running, vehicle_is_potentially_powered) {
+    1: return 40;
+    return 8;
+}
+
+
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_power_front, (position_in_consist / 3) + 1) {
+    2: return 708;
+    4..5: return 708;
+    return 0;
+}
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_power, (position_in_consist_from_end / 3) + 1) {
+    1..2: return 708;
+    switch_mtrain_power_front;
+}
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_traction, vehicle_is_potentially_powered) {
+    1: return int(0.126*255);
+    return 0;
+}
+
+
+
+
+switch (FEAT_TRAINS, SELF, switch_mtrain_articulated_part, extra_callback_info1) {
+    1..2: return mtrain;
+    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+
+
+
+item (FEAT_TRAINS, mtrain) {
+    property {
+
+        name: string(STR_NAME_MTRAIN);
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_AUTOREFIT, TRAIN_FLAG_MU);
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        variant_group: whitehead;
+
+
+        climates_available: ALL_CLIMATES;
+        introduction_date: date(1998,12,21);
+        model_life: 40;
+        retire_early: 40;
+        vehicle_life: 45;
+        track_type: SACd;
+
+
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: 0;
+        cargo_allow_refit: [PASS, TOUR, YETI, YETY];
+        cargo_disallow_refit: [];
+        refit_cost: 0;
+        default_cargo_type: PASS;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        cargo_capacity: 1;
+        loading_speed: 36 << param_loading_speed;
+        cargo_age_period: 128 << param_cargo_decay;
+
+
+        speed: 80 km/h;
+        power: 528 kW;
+        weight: 40.5 ton;
+        tractive_effort_coefficient: 0.126;
+        cost_factor: 40;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        running_cost_factor: 8;
+        reliability_decay: 8;
+        bitmask_vehicle_info: bitmask(2);
+    }
+    graphics {
+
+        additional_text: string(STR_DESC_7, string(STR_ELECTRIC_1500VDC), string(STR_USEDLINE_URL), string(STR_MTR_NORMAL_CAN_ATTACH_WAGON),string(STR_RELDEC_LOW, 8), string(STR_NORMAL_HEAD_SEAT));
+        can_attach_wagon: muhead_without_first_class;
+        start_stop: mu4to12car;
+
+
+        default: switch_mtrain_graphics;
+        purchase: switch_mtrain_purchase_original;
+        articulated_part: switch_mtrain_articulated_part;
+
+
+        length: switch_length_2_6_2;
+
+
+
+
+
+        cargo_capacity: switch_mtrain_capacity;
+        cargo_age_period: 128 << param_cargo_decay;
+        cost_factor: 45;
+        running_cost_factor: 10 * runningcostfactor() + 20;
+        purchase_running_cost_factor: 70;
+        purchase_cargo_capacity: 125/3;
+        bitmask_vehicle_info: bitmask(2);
+        name: switch_whitehead_name;
+    }
+
+
+    livery_override(normal_emucoach) {
+        default: switch_mtrain_middle_wagon_graphics;
+        cargo_capacity: switch_mtrain_capacity;
+        power: switch_mtrain_power;
+        tractive_effort_coefficient: switch_mtrain_traction;
+        length: switch_length_2_6_2;
+        weight: switch_mtrain_weight;
+        can_attach_wagon: mu_of_mtr;
+        cargo_age_period: 128 << param_cargo_decay;
+        bitmask_vehicle_info: 0;
+        articulated_part: switch_mtr_wagon_articulated_part;
+        running_cost_factor: switch_mtrain_running() * runningcostfactor() + accostfactor();
+    }
+}
+# 42 "chinaset-mtraddon.pnml" 2
 # 1 "src/1500vmu/caf-train-tungchung.pnml" 1
 
 switch (FEAT_TRAINS, SELF, switch_caf_train_name, getbits(extra_callback_info1, 0, 8) == 0x20? getbits(extra_callback_info1, 8, 8) : 0xFFFF) {
@@ -3255,7 +3462,7 @@ item (FEAT_TRAINS, caf_train_tungchung) {
         running_cost_factor: switch_caf_train_tungchung_running() * runningcostfactor() + accostfactor();
     }
 }
-# 42 "chinaset-mtraddon.pnml" 2
+# 43 "chinaset-mtraddon.pnml" 2
 # 1 "src/1500vmu/caf-train-airport-express.pnml" 1
 
 
@@ -3503,7 +3710,7 @@ item (FEAT_TRAINS, caf_train_airport_express) {
         running_cost_factor: switch_caf_train_airport_express_running() * runningcostfactor() + accostfactor();
     }
 }
-# 43 "chinaset-mtraddon.pnml" 2
+# 44 "chinaset-mtraddon.pnml" 2
 
 
 
@@ -3519,6 +3726,7 @@ sort (FEAT_TRAINS, [
     tml_ctrain,
     mtr380a,
     whitehead,
+    mtrain,
     caf_train_tungchung,
     caf_train_airport_express,
     normal_emucoach,
@@ -3526,4 +3734,4 @@ sort (FEAT_TRAINS, [
     first_emucoach_with_mailroom,
     luggage_emucoach,
 ]);
-# 47 "chinaset-mtraddon.pnml" 2
+# 48 "chinaset-mtraddon.pnml" 2

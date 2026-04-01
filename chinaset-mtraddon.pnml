@@ -38,6 +38,7 @@
 
 //1500V EMUs
 #include "src/1500vmu/whitehead.pnml"
+#include "src/1500vmu/mtrain.pnml"
 #include "src/1500vmu/caf-train-tungchung.pnml"
 #include "src/1500vmu/caf-train-airport-express.pnml"
 
