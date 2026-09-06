@@ -11,7 +11,7 @@ spriteset (spriteset_taipo_belle_purchase_original, ZOOM_LEVEL_IN_4X, BIT_DEPTH_
 
 // Vehicle
 spriteset (spriteset_taipo_belle, ZOOM_LEVEL_IN_4X, BIT_DEPTH_32BPP) {
-    template_reversed ("dieselloco", "taipo-belle")
+    template_standard ("dieselloco", "taipo-belle")
 }
 
 switch (FEAT_TRAINS, SELF, switch_taipo_belle_capacity, position_in_articulated_veh % 3) {
@@ -84,7 +84,7 @@ item (FEAT_TRAINS, taipo_belle) {
         cost_factor:                    45;
         running_cost_factor:            25 * runningcostfactor();
         purchase_running_cost_factor:   100;
-        purchase_cargo_capacity:        0;
+        purchase_cargo_capacity:        80/3;
         bitmask_vehicle_info:           0;
 
     }
