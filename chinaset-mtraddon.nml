@@ -9,7 +9,7 @@ grf {
     name: string(STR_GRF_NAME);
     desc: string(STR_DESC_4, string(STR_GRF_DESC), string(STR_GRF_DESC_README),string(STR_GRF_DESC_MTR));
     url: string(STR_GRF_URL);
-    version: 35;
+    version: 36;
     min_compatible_version: 20;
 
     param 0 {
@@ -1160,7 +1160,7 @@ item (FEAT_TRAINS, taipo_belle) {
 
 
         length: switch_length_2_4_2;
-        cargo_capacity: 0;
+        cargo_capacity: switch_taipo_belle_capacity;
         cost_factor: 45;
         running_cost_factor: 25 * runningcostfactor();
         purchase_running_cost_factor: 100;

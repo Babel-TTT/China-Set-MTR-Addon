@@ -1,4 +1,8 @@
-26/07/01 v0.3.5 by Babel
+26/09/01 v0.3.5 by Babel
+---------
+Fix: Taipo-Belle Rail Bus capacity
+
+26/09/01 v0.3.5 by Babel
 ---------
 Add Taipo-Belle Rail Bus 
 

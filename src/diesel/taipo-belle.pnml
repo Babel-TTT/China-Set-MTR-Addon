@@ -80,7 +80,7 @@ item (FEAT_TRAINS, taipo_belle) {
 
         // Stats
         length:                         switch_length_2_4_2;
-        cargo_capacity:                 0;
+        cargo_capacity:                 switch_taipo_belle_capacity;
         cost_factor:                    45;
         running_cost_factor:            25 * runningcostfactor();
         purchase_running_cost_factor:   100;
