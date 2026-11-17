@@ -133,7 +133,7 @@ item (FEAT_TRAINS, mtrain) {
         model_life:                     40;
         retire_early:                   40;
         vehicle_life:                   45;
-        track_type:                     SACd;
+        track_type:                     SABd;
 
         // Cargo
         refittable_cargo_classes:       bitmask(CC_PASSENGERS);

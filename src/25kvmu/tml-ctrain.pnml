@@ -155,7 +155,7 @@ item (FEAT_TRAINS, tml_ctrain) {
         introduction_date:              date(2017,03,12);
         model_life:                     VEHICLE_NEVER_EXPIRES;
         vehicle_life:                   35;
-        track_type:                     SACA;
+        track_type:                     SABA;
 
         // Cargo
         refittable_cargo_classes:       bitmask(CC_PASSENGERS);

@@ -38,7 +38,7 @@ item (FEAT_TRAINS, yellowhead_suburb) {
         model_life:                     60;
         retire_early:                   45;
         vehicle_life:                   35;
-        track_type:                     SACA;
+        track_type:                     SABA;
 
         // Cargo
         refittable_cargo_classes:       bitmask(CC_PASSENGERS);

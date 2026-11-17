@@ -45,7 +45,7 @@ item (FEAT_TRAINS, taipo_belle) {
         model_life:                     30;
         retire_early:                   15;
         vehicle_life:                   15;
-        track_type:                     SACN;
+        track_type:                     SABN;
 
         // Cargo
         refittable_cargo_classes:       bitmask(CC_PASSENGERS);

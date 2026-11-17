@@ -163,7 +163,7 @@ item (FEAT_TRAINS, caf_train_airport_express) {
         model_life:                     60;
         retire_early:                   35;
         vehicle_life:                   35;
-        track_type:                     SACd;
+        track_type:                     SABd;
 
         // Cargo
         refittable_cargo_classes:       bitmask(CC_PASSENGERS, CC_MAIL, CC_EXPRESS, CC_ARMOURED);

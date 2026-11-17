@@ -134,7 +134,7 @@ item (FEAT_TRAINS, whitehead) {
         model_life:                     60;
         retire_early:                   40;
         vehicle_life:                   45;
-        track_type:                     SACd;
+        track_type:                     SABd;
 
         // Cargo
         refittable_cargo_classes:       bitmask(CC_PASSENGERS);
